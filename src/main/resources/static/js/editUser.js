@@ -14,22 +14,27 @@ async function editUser(modal, id) {
             <form class="form-group text-center" id="editUser">
                <div class="form-group">
                     <label for="userId" class="col-form-label">ID</label>
-                    <input type="text" class="form-control" id="userId" value="${user.userId}" readonly>
+                    <input type="text" class="form-control username" id="userId" value="${user.userId}" readonly>
                </div>
- 
+                   
+               <div class="form-group">
+                    <label for="username" class="col-form-label">Username</label>
+                    <input type="text" class="form-control username" id="username" value="${user.username}">
+               </div>
+
                 <div class="form-group">
                     <label for="password" class="com-form-label">Password</label>
                     <input type="password" class="form-control" id="password" value="${user.password}">
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="com-form-label">FirstName</label>
-                    <input type="text" class="form-control" id="name" value="${user.firstName}">
+                    <label for="name" class="com-form-label">Name</label>
+                    <input type="text" class="form-control" id="name" value="${user.name}">
                 </div>
 
                 <div class="form-group">
-                    <label for="lastName" class="com-form-label">LastName</label>
-                    <input type="text" class="form-control" id="lastName" value="${user.lastName}">
+                    <label for="surname" class="com-form-label">Surname</label>
+                    <input type="text" class="form-control" id="surname" value="${user.surname}">
                 </div>
 
                 <div class="form-group">
@@ -66,16 +71,18 @@ async function editUser(modal, id) {
             return array;
         }
         let userId = modal.find("#userId").val().trim();
+        let username = modal.find("#username").val().trim();
         let password = modal.find("#password").val().trim();
-        let name = modal.find("#firstName").val().trim();
-        let surname = modal.find("#lastName").val().trim();
+        let name = modal.find("#name").val().trim();
+        let surname = modal.find("#surname").val().trim();
         let age = modal.find("#age").val().trim();
         let email = modal.find("#email").val().trim();
         let data = {
             userId: userId,
+            username: username,
             password: password,
-            firstName: name,
-            lastName: surname,
+            name: name,
+            surname: surname,
             age: age,
             email: email,
             roles: checkedRoles()

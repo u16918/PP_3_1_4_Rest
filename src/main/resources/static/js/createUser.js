@@ -1,9 +1,10 @@
 async function createUser() {
     $('#addUser').click(async () =>  {
         let addUserForm = $('#addForm')
+        let username = addUserForm.find('#usernameCreate').val().trim();
         let password = addUserForm.find('#passwordCreate').val().trim();
-        let firstName = addUserForm.find('#nameCreate').val().trim();
-        let lastName = addUserForm.find('#surnameCreate').val().trim();
+        let name = addUserForm.find('#nameCreate').val().trim();
+        let surname = addUserForm.find('#surnameCreate').val().trim();
         let age = addUserForm.find('#ageCreate').val().trim();
         let email = addUserForm.find('#emailCreate').val().trim();
         let checkedRoles = () => {
@@ -17,9 +18,10 @@ async function createUser() {
             return array;
         }
         let data = {
+            username: username,
             password: password,
-            firstName: firstName,
-            lastName: lastName,
+            name: name,
+            surname: surname,
             age: age,
             email: email,
             roles: checkedRoles()
@@ -28,9 +30,10 @@ async function createUser() {
         const response = await userFetch.addNewUser(data);
         if (response.ok) {
             await getUsers();
+            addUserForm.find('#usernameCreate').val('');
             addUserForm.find('#passwordCreate').val('');
-            addUserForm.find('#firstNameCreate').val('');
-            addUserForm.find('#lastNameCreate').val('');
+            addUserForm.find('#nameCreate').val('');
+            addUserForm.find('#surnameCreate').val('');
             addUserForm.find('#ageCreate').val('');
             addUserForm.find('#emailCreate').val('');
             addUserForm.find(checkedRoles()).val('');

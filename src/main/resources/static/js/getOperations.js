@@ -7,8 +7,9 @@ async function getUser() {
             temp = `
                 <tr>
                     <td>${user.userId}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.surname}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
                     <td>${user.roles.map(e => " " + e.role.substr(5))}</td>
@@ -40,7 +41,7 @@ async function tittle() {
     const h1a1 = document.querySelector('#h1a1');
     if (isUser) {
         temp = `
-            <h1 className="h1 a1" id="h1a1">User page</h1>
+            <h1 className="h1 a1" id="h1a1">User information page</h1>
             `;
         h1a1.innerHTML = temp;
     } else {
@@ -61,8 +62,9 @@ async function getUsers() {
                 temp += `
                 <tr>
                     <td>${user.userId}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td>${user.surname}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
                     <td>${user.roles.map(e => " " + e.role.substr(5))}</td>

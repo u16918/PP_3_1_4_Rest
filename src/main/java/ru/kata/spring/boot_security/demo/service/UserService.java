@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.springframework.validation.BindingResult;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface UserService {
     void addDefaultUser();
     void update(User user);
     User passwordCoder(User user);
+
+    String getErrorsFromBindingResult(BindingResult bindingResult);
+
 }
