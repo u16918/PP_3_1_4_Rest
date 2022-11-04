@@ -18,10 +18,12 @@ import java.util.List;
 public class MyRestController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
 
     public MyRestController(RoleService roleService, UserService userService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/users")

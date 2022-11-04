@@ -13,12 +13,11 @@ import ru.kata.spring.boot_security.demo.Exception.ExceptionInfo;
 import ru.kata.spring.boot_security.demo.Exception.UserUsernameExistException;
 import ru.kata.spring.boot_security.demo.dao.RoleDAO;
 import ru.kata.spring.boot_security.demo.dao.UserDAO;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -69,7 +68,6 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
     @Override
     @Transactional
     public void save(User user) {
@@ -81,7 +79,6 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         userDAO.save(user);
     }
-
 
     @Override
     @Transactional
@@ -116,40 +113,12 @@ public class UserServiceImpl implements UserService {
         return userDAO.findByUsername(username);
     }
 
-
-    @Override
-    @PostConstruct
-    public void addDefaultUser() {
-        Set<Role> roles1 = new HashSet<>();
-        roles1.add(roleDAO.findById(1L).orElse(null));
-        Set<Role> roles2 = new HashSet<>();
-        roles2.add(roleDAO.findById(1L).orElse(null));
-        roles2.add(roleDAO.findById(2L).orElse(null));
-        User user1 = new User("User", "LastUser", (byte) 25, "user@mail.com", "user", "12345", roles1);
-        User user2 = new User("Admin", "LastAdmin", (byte) 30, "admin@mail.com", "admin", "admin", roles2);
-        save(user1);
-        save(user2);
-    }
-
     @Override
     public String getErrorsFromBindingResult(BindingResult bindingResult) {
         return bindingResult.getFieldErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.joining("; "));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserServiceImpl)) return false;
-        UserServiceImpl that = (UserServiceImpl) o;
-        return userDAO.equals(that.userDAO) && roleDAO.equals(that.roleDAO) && passwordEncoder.equals(that.passwordEncoder);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userDAO, roleDAO, passwordEncoder);
     }
 }
 
