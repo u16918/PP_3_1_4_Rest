@@ -2,7 +2,6 @@ package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -23,10 +22,6 @@ public class SecurityConfig {
         this.successUserHandler = successUserHandler;
     }
 
-    protected void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
-
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.formLogin()
@@ -38,7 +33,10 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')").anyRequest().authenticated();
+                .antMatchers("/")
+                .access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+                .anyRequest()
+                .authenticated();
         http.logout()
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
